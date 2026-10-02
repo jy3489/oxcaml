@@ -194,6 +194,24 @@ module Game_state = struct
     && (not (is_river to_pos) || can_enter_river piece.animal)
   ;;
 
+  let get_all_moves t : Move.t list =
+    Map.keys t.board
+    |> List.concat_map ~f:(fun from_pos ->
+      [ { Move.from_pos = from_pos
+        ; to_pos = { row = from_pos.row - 1; column = from_pos.column }
+        }
+      ; { Move.from_pos = from_pos
+        ; to_pos = { row = from_pos.row + 1; column = from_pos.column }
+        }
+      ; { Move.from_pos = from_pos
+        ; to_pos = { row = from_pos.row; column = from_pos.column - 1 }
+        }
+      ; { Move.from_pos = from_pos
+        ; to_pos = { row = from_pos.row; column = from_pos.column + 1 }
+        }
+      ])
+  ;;
+  
   let make_move t (move : Move.t) : (t, Move_error.t) Result.t =
     match t.decision with
     | Winner _ -> Error Game_is_over
