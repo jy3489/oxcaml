@@ -78,5 +78,6 @@ module Game_state : sig
     [@@deriving sexp, compare]
   end
 
+  val get_all_moves : t -> Move.t list
   val make_move : t -> Move.t -> (t, Move_error.t) Result.t
 end
