@@ -9,4 +9,11 @@ val better_move :
   Game_state.t -> depth:int -> Move.t option
 
 val play_game :
-  Game_state.t -> Player_kind.t option
+  better_player:Player_kind.t ->
+  max_moves:int ->
+  Player_kind.t option
+
+val run_games :
+  num_games:int ->
+  max_moves:int ->
+  int * int * int
